@@ -12,7 +12,7 @@ This is a simple public API developed using FastAPI for the HNG12 Stage 0 task. 
 - Lightweight and fast using FastAPI.
 
 ## Setup Instructions
-### Prerquisites
+### Prerequisites
 ### 1. Clone the Repository
 ```
     git clone http://github.com/eniolaomotee/HNG12_Internship
