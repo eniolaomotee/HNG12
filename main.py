@@ -17,5 +17,5 @@ def get_info():
     return {
         "email": "eniolaomotomi@gmail.com",
         "current_datetime": datetime.utcnow().isoformat() + "Z",
-        "github_url": "https://github.com/eniolaomotee/HNG12_Internship"  # Replace with your GitHub repo URL
+        "github_url": "https://github.com/eniolaomotee/HNG12_Internship" 
     }
