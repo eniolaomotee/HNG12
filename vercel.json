@@ -1,24 +1,27 @@
-  {
-    "version": 2,
-    "builds": [
-      {
-        "src": "main.py",
-        "use": "@vercel/python"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/(.*)",
-        "dest": "main.py"
-      },
-      {
-        "src": "/docs",
-        "dest": "main.py"
-      },
-      {
-        "src": "/openapi.json",
-        "dest": "main.py"
-      }
-    ]
-  }
-  
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "main.py"
+    },
+    {
+      "src": "/docs",
+      "dest": "main.py"
+    },
+    {
+      "src": "/openapi.json",
+      "dest": "main.py"
+    },
+    {
+      "src": "/",
+      "dest": "main.py"
+    }
+  ]
+}

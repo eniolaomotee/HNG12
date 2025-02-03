@@ -2,6 +2,7 @@ from fastapi import FastAPI,Query
 from pydantic import BaseModel
 from typing import List,Union
 import httpx
+from fastapi.responses import RedirectResponse
 from mangum import Mangum
 
 
@@ -47,6 +48,11 @@ async def get_fun_fact(n):
         response = await client.get(url)
         return response.text if response.status_code == 200 else "No Fun Fact Found"
 
+
+
+@app.get("/")
+async def redirect_to_docs():
+    return RedirectResponse(url="/docs")
 
 # Main Route
 @app.get("/api/classify-number",response_model=Union[NumberResponse,dict])
