@@ -1,6 +1,6 @@
-from fastapi import FastAPI,HTTPException,Query
+from fastapi import FastAPI,Query
 from pydantic import BaseModel
-from typing import List,Union,Optional
+from typing import List,Union
 import httpx
 
 app = FastAPI()
@@ -47,7 +47,6 @@ async def get_fun_fact(n):
 
 
 # Main Route
-
 @app.get("/api/classify-number",response_model=Union[NumberResponse,dict])
 async def classify_number(number: str = Query(...)):
     if not number.isdigit():
