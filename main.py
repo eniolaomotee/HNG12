@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import List,Union
 import httpx
 from fastapi.responses import RedirectResponse
-from mangum import Mangum
+# from mangum import Mangum
 
 
 app = FastAPI()
@@ -82,4 +82,4 @@ async def classify_number(number: str = Query(...)):
         fun_fact=fun_fact
     )
     
-handler = Mangum(app)
+# handler = Mangum(app)
