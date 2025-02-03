@@ -2,6 +2,8 @@ from fastapi import FastAPI,Query
 from pydantic import BaseModel
 from typing import List,Union
 import httpx
+from mangum import Mangum
+
 
 app = FastAPI()
 
@@ -73,3 +75,5 @@ async def classify_number(number: str = Query(...)):
         digit_sum=  digit_sum,
         fun_fact=fun_fact
     )
+    
+handler = Mangum(app)
