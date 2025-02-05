@@ -19,7 +19,7 @@ class ErrorResponse(BaseModel):
     number: str
     error: bool
 
-# Utility functions (definitions remain the same)
+# Utility functions
 def is_prime(n: int) -> bool:
     if n < 2:
         return False
@@ -44,7 +44,7 @@ async def get_fun_fact(n: int) -> str:
         response = await client.get(url)
         return response.text if response.status_code == 200 else "No Fun Fact Found"
 
-# Optional Root Route: Redirect to your main endpoint
+# Optional Root Route: Redirects to the main endpoint.
 @app.get("/")
 async def root():
     return RedirectResponse(url="/api/classify-number")
@@ -52,28 +52,31 @@ async def root():
 # Main API Route
 @app.get("/api/classify-number", response_model=Union[NumberResponse, ErrorResponse])
 async def classify_number(number: str = Query(default="")):
-    # If the number parameter is missing or invalid, return the error response.
+    # Validate that a number is provided and is numeric (allowing an optional minus sign)
     if not number or not number.lstrip('-').isdigit():
         return ErrorResponse(number="alphabet", error=True)
     
-    num = int(number)
-    if num < 0:
-        return ErrorResponse(number="alphabet", error=True)
+    # Convert the input to an integer
+    original_num = int(number)
     
-    # Compute number properties
-    prime = is_prime(num)
-    perfect = is_perfect(num)
-    armstrong = is_armstrong(num)
-    digit_sum = get_digit_sum(num)
-    fun_fact = await get_fun_fact(num)
+    # For computing properties, use the absolute value.
+    computed_num = abs(original_num)
+    
+    # Compute number properties using the absolute value
+    prime = is_prime(computed_num)
+    perfect = is_perfect(computed_num)
+    armstrong = is_armstrong(computed_num)
+    digit_sum = get_digit_sum(computed_num)
+    fun_fact = await get_fun_fact(computed_num)
     
     properties = []
     if armstrong:
         properties.append("Armstrong")
-    properties.append("odd" if num % 2 else "even")
+    properties.append("odd" if computed_num % 2 else "even")
     
+    # Return the response with the original number (which may be negative)
     return NumberResponse(
-        number=num,
+        number=original_num,
         is_prime=prime,
         is_perfect=perfect,
         properties=properties,
