@@ -52,17 +52,13 @@ async def root():
 # Main API Route
 @app.get("/api/classify-number", response_model=Union[NumberResponse, ErrorResponse])
 async def classify_number(number: str = Query(default="")):
-    # Validate that a number is provided and is numeric (allowing an optional minus sign)
     if not number or not number.lstrip('-').isdigit():
         return ErrorResponse(number="alphabet", error=True)
     
-    # Convert the input to an integer
     original_num = int(number)
     
-    # For computing properties, use the absolute value.
     computed_num = abs(original_num)
     
-    # Compute number properties using the absolute value
     prime = is_prime(computed_num)
     perfect = is_perfect(computed_num)
     armstrong = is_armstrong(computed_num)
@@ -74,7 +70,6 @@ async def classify_number(number: str = Query(default="")):
         properties.append("Armstrong")
     properties.append("odd" if computed_num % 2 else "even")
     
-    # Return the response with the original number (which may be negative)
     return NumberResponse(
         number=original_num,
         is_prime=prime,
